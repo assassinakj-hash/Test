@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent(out Bullet _)) return;
+        if (!other.TryGetComponent(out Bullet _) && !other.TryGetComponent(out Enemy _)) return;
 
         SceneManager.LoadScene(1);
     }
