@@ -17,16 +17,6 @@
                     "priority": 0
                 },
                 {
-                    "name": "Sprint",
-                    "type": "Button",
-                    "id": "c63588b6-bc4a-4dbc-b646-f6e484563004",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
-                },
-                {
                     "name": "Attack",
                     "type": "Button",
                     "id": "5061b2ee-9123-48c8-be7d-4eeca24fa0c4",
@@ -58,17 +48,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "ba233ab9-ede9-4ead-9078-bd28a431f84d",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Sprint",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "WASD",
                     "id": "3b51b964-34a0-49e8-8812-aee0c9f91da6",
@@ -182,7 +161,7 @@
                 {
                     "name": "",
                     "id": "edf54675-5eb7-46e0-b5e7-b5f8ed55e4d8",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -193,7 +172,7 @@
                 {
                     "name": "",
                     "id": "5acaa306-3098-4ebd-b182-313dff379c2f",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

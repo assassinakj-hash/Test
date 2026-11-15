@@ -5,11 +5,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Transform player;
 
+    [SerializeField] private Vector3[] spawnPoints = new Vector3[8];
+
     private Transform cachedTransform;
 
     private void Awake() => cachedTransform = transform;
 
-    private void Update() => cachedTransform.position = Vector3.Lerp(cachedTransform.position, player.position, Time.deltaTime * speed);
+    private void Update() => cachedTransform.position = Vector3.Lerp(
+        cachedTransform.position,
+        player.position,
+        Time.deltaTime * speed
+    );
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,6 +25,6 @@ public class Enemy : MonoBehaviour
         toPlayer.y = 0f;
         bullet.SetDirection(toPlayer.normalized);
 
-        Destroy(gameObject);
+        cachedTransform.position = spawnPoints[Random.Range(0, spawnPoints.Length)];
     }
 }

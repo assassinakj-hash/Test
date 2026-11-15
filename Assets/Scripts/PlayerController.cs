@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     private float lastAttackTime;
     private float lastDashTime;
     private float dashEndTime;
-    private bool isSprinting;
     private bool isSwinging;
     private bool isDashing;
     private Vector2 camRotation;
@@ -57,8 +56,6 @@ public class PlayerController : MonoBehaviour
         inputActions.OnFoot.Attack.performed += Attack_performed;
         inputActions.OnFoot.Jump.performed += Jump_performed;
         inputActions.OnFoot.Dash.performed += Dash_performed;
-        inputActions.OnFoot.Sprint.performed += Sprint_performed;
-        inputActions.OnFoot.Sprint.canceled += Sprint_canceled;
     }
 
     private void OnDisable()
@@ -68,8 +65,6 @@ public class PlayerController : MonoBehaviour
         inputActions.OnFoot.Attack.performed -= Attack_performed;
         inputActions.OnFoot.Jump.performed -= Jump_performed;
         inputActions.OnFoot.Dash.performed -= Dash_performed;
-        inputActions.OnFoot.Sprint.performed -= Sprint_performed;
-        inputActions.OnFoot.Sprint.canceled -= Sprint_canceled;
     }
 
     private void Update() 
@@ -121,8 +116,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 GetFootMovement()
     {
         Vector2 input = Vector2.ClampMagnitude(inputActions.OnFoot.Move.ReadValue<Vector2>(), 1.0f) * moveSpeed;
-        
-        if (isSprinting) input *= sprintSpeedMultiplier;
 
         return cachedTransform.right * input.x + cachedTransform.forward * input.y;
     }
@@ -142,14 +135,7 @@ public class PlayerController : MonoBehaviour
         lastAttackTime = time;
         isSwinging = true;
 
-        if (bullet == null) return;
-
-        Vector3 toBullet = bullet.transform.position - cachedTransform.position;
-        bool inRange = toBullet.sqrMagnitude <= parryRange * parryRange;
-        bool inFront = Vector3.Dot(cachedTransform.forward, toBullet.normalized) > 0.5f;
-
-        if (inRange && inFront)
-            bullet.SetDirection(cachedTransform.forward);
+        if ((bullet.transform.position - cachedTransform.position).sqrMagnitude <= parryRange * parryRange) bullet.SetDirection(cachedTransform.forward);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -176,14 +162,5 @@ public class PlayerController : MonoBehaviour
 
         isDashing = true;
         dashEndTime = Time.time + dashDuration;
-    }
-
-    private void Sprint_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        isSprinting = true;
-    }
-    private void Sprint_canceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        isSprinting = false;
     }
 }
